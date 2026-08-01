@@ -1,0 +1,11 @@
+{% extends 'loyalty/base.html' %}
+{% block content %}
+<h2 class="text-2xl font-bold text-center mb-2 text-amber-400">Enter Verification Code</h2>
+<p class="text-slate-400 text-center mb-2 text-sm">Code sent to <span class="text-white">{{ phone }}</span></p>
+<div class="bg-slate-900 p-2 rounded text-center text-xs text-amber-300 font-mono mb-4">Demo Code: {{ demo_otp }}</div>
+<form method="POST" class="space-y-4">
+    {% csrf_token %}
+    <input type="text" name="otp" placeholder="4-digit code" required class="w-full px-4 py-3 bg-slate-900 rounded-lg border border-slate-700 text-center text-xl tracking-widest text-white focus:outline-none focus:border-amber-400">
+    <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg transition">Verify Code</button>
+</form>
+{% endblock %}

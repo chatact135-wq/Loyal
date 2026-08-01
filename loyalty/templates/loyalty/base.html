@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Loyalty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex flex-col justify-center items-center p-4">
+    <div class="w-full max-w-md bg-slate-800 rounded-2xl shadow-xl p-6 border border-slate-700">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="bg-amber-500/20 text-amber-300 p-3 rounded-lg mb-4 text-center text-sm border border-amber-500/30">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

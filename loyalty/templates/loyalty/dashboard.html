@@ -1,0 +1,36 @@
+{% extends 'loyalty/base.html' %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <div>
+        <p class="text-xs text-slate-400">Logged in as</p>
+        <p class="font-semibold text-white">{{ customer.phone_number }}</p>
+    </div>
+    <a href="{% url 'logout' %}" class="text-xs text-red-400 hover:underline">Logout</a>
+</div>
+
+<div class="bg-slate-900 border border-slate-700 p-6 rounded-xl text-center mb-6">
+    <p class="text-xs uppercase text-slate-400 tracking-wider">Your Reward Balance</p>
+    <p class="text-4xl font-extrabold text-amber-400 my-2">{{ customer.points }} <span class="text-sm font-normal text-slate-300">pts</span></p>
+    <p class="text-xs text-slate-400">Worth {{ customer.points|slugify }} AED</p>
+</div>
+
+<div class="bg-white p-4 rounded-xl text-center mb-6">
+    <p class="text-xs text-slate-800 font-semibold mb-2">Show this QR code to staff</p>
+    <img src="data:image/png;base64,{{ qr_b64 }}" alt="Loyalty QR Code" class="mx-auto w-48 h-48">
+</div>
+
+<h3 class="font-bold text-sm text-slate-300 mb-3">Recent Transactions</h3>
+<div class="space-y-2 max-h-48 overflow-y-auto">
+    {% for tx in transactions %}
+        <div class="flex justify-between items-center p-3 bg-slate-900 rounded-lg text-xs">
+            <div>
+                <p class="text-white font-medium">{{ tx.description }}</p>
+                <p class="text-slate-500">{{ tx.created_at|date:"d M Y, h:i A" }}</p>
+            </div>
+            <span class="text-amber-400 font-bold">+{{ tx.points_added }} pts</span>
+        </div>
+    {% empty %}
+        <p class="text-xs text-slate-500 text-center py-4">No transactions yet</p>
+    {% endfor %}
+</div>
+{% endblock %}
